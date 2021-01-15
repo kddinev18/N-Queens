@@ -1,20 +1,85 @@
-// 4-Queens.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+using namespace std;
+
+void printTable(int board[4][4])
+{
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			cout << board[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+
+
+int findQueenRowPosition(int board[4][4])
+{
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			if (board[i][j] == 2)
+			{
+				return i;
+			}
+		}
+	}
+}
+
+int findQueenColPosition(int board[4][4])
+{
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			if (board[i][j] == 2)
+			{
+				return j;
+			}
+		}
+	}
+}
+
+int occupiePlaces(int board[4][4])
+{
+	int row = findQueenRowPosition(board);
+	int col = findQueenColPosition(board);
+	for (int i = 0; i < 4; i++)
+	{
+		board[col][i] = 1;
+	}
+	for (int i = 0; i < 4; i++)
+	{
+		board[i][row] = 1;
+	}
+	return 0;
+}
+
+bool solver(int board[4][4])
+{
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			if (board[i][j] == 0)
+			{
+				board[i][j] = 2;
+				break;
+			}
+		}
+	}
+	occupiePlaces(board);
+	return 0;
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	int board[4][4] = { {0,0,0,0},
+						{0,0,0,0},
+						{0,0,0,0},
+						{0,0,0,0} };
+	solver(board);
+	printTable(board);
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file

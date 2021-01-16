@@ -71,7 +71,7 @@ void occupieTopLeftCorner(int board[4][4], int row, int col)
 void occupieBottomRightCorner(int board[4][4], int row, int col)
 {
 	int i = row, j = col;
-	while (i != 3 or j != 3)
+	while (i != 4 or j != 4)
 	{
 		if ((j > 3 or i > 3) or (j < 0 or i < 0))
 		{
@@ -111,17 +111,11 @@ int occupiePlaces(int board[4][4])
 	int col = findQueenColPosition(board);
 	for (int i = 0; i < 4; i++)
 	{
-		if (board[col][i] != 2)
-		{
-			board[col][i] = 1;
-		}
+		board[col][i] = 1;
 	}
 	for (int i = 0; i < 4; i++)
 	{
-		if (board[i][row] != 2)
-		{
-			board[i][row] = 1;
-		}
+		board[i][row] = 1;
 	}
 
 	if (row == 0 and col == 0)
@@ -160,24 +154,37 @@ int occupiePlaces(int board[4][4])
 		occupieBottomLeftCorner(board, row, col);
 		occupieBottomRightCorner(board, row, col);
 	}
+	else
+	{
+		occupieBottomLeftCorner(board, row, col);
+		occupieBottomRightCorner(board, row, col);
+		occupieTopLeftCorner(board, row, col);
+		occupieTopRightCorner(board, row, col);
+	}
 
+	board[col][row] = 3;
 	return 0;
 }
 
+
 bool solver(int board[4][4])
 {
-	for (int j = 0; j < 4; j++)
+	int queens = 0;
+	for (int z = 0; z < 4; z++)
 	{
-		for (int i = 0; i < 4; i++)
+		for (int j = 0; j < 4; j++)
 		{
-			if (board[j][i] == 0)
+			for (int i = 0; i < 4; i++)
 			{
-				board[j][i] = 2;
-				break;
+				if (board[j][i] == 0)
+				{
+					board[j][i] = 2;
+					occupiePlaces(board);
+					queens++;
+				}
 			}
 		}
 	}
-	occupiePlaces(board);
 	return 0;
 }
 
@@ -200,9 +207,8 @@ int main()
 						{0,0,0,0},
 						{0,0,0,0},
 						{0,0,0,0} };
-	for (int i = 0; i < 1; i++)
-	{
-		solver(board);
-	}
+
+	solver(board);
+	
 	printTable(board);
 }

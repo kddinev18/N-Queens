@@ -1,8 +1,15 @@
 #include <iostream>
 using namespace std;
 
+int board[4][4] = { {0,0,0,0},
+					{0,0,0,0},
+					{0,0,0,0},
+					{0,0,0,0} };
+int fillerRow = 0;
+int fillerCol = 0;
+int solutions = 0;
 
-int findQueenRowPosition(int board[4][4])
+int findQueenRowPosition()
 {
 	for (int j = 0; j < 4; j++)
 	{
@@ -16,7 +23,7 @@ int findQueenRowPosition(int board[4][4])
 	}
 }
 
-int findQueenColPosition(int board[4][4])
+int findQueenColPosition()
 {
 	for (int j = 0; j < 4; j++)
 	{
@@ -30,7 +37,7 @@ int findQueenColPosition(int board[4][4])
 	}
 }
 
-void occupieTopRightCorner(int board[4][4],int row,int col)
+void occupieTopRightCorner(int row,int col)
 {
 	int i = row, j = col;
 	while (j != 0 or i != 4)
@@ -49,7 +56,7 @@ void occupieTopRightCorner(int board[4][4],int row,int col)
 	}
 }
 
-void occupieTopLeftCorner(int board[4][4], int row, int col)
+void occupieTopLeftCorner(int row, int col)
 {
 	int i = row, j = col;
 	while (j >= 0 or i >= 0)
@@ -68,7 +75,7 @@ void occupieTopLeftCorner(int board[4][4], int row, int col)
 	}
 }
 
-void occupieBottomRightCorner(int board[4][4], int row, int col)
+void occupieBottomRightCorner(int row, int col)
 {
 	int i = row, j = col;
 	while (i != 4 or j != 4)
@@ -87,7 +94,7 @@ void occupieBottomRightCorner(int board[4][4], int row, int col)
 	}
 }
 
-void occupieBottomLeftCorner(int board[4][4], int row, int col)
+void occupieBottomLeftCorner(int row, int col)
 {
 	int i = row, j = col;
 	while (i != 4 or j!=0)
@@ -105,10 +112,10 @@ void occupieBottomLeftCorner(int board[4][4], int row, int col)
 	}
 }
 
-int occupiePlaces(int board[4][4])
+int occupiePlaces()
 {
-	int row = findQueenRowPosition(board);
-	int col = findQueenColPosition(board);
+	int row = findQueenRowPosition();
+	int col = findQueenColPosition();
 	for (int i = 0; i < 4; i++)
 	{
 		board[col][i] = 1;
@@ -120,75 +127,64 @@ int occupiePlaces(int board[4][4])
 
 	if (row == 0 and col == 0)
 	{
-		occupieBottomRightCorner(board, row, col);
+		occupieBottomRightCorner(row, col);
 	}
 	else if (row == 0 and col != 0 and col != 3)
 	{
-		occupieBottomRightCorner(board, row, col);
-		occupieTopRightCorner(board, row, col);
+		occupieBottomRightCorner(row, col);
+		occupieTopRightCorner(row, col);
 	}
 	else if (col == 3 and row == 0)
 	{
-		occupieTopRightCorner(board, row, col);
+		occupieTopRightCorner(row, col);
 	}
 	else if (col == 3 and row != 0 and row !=3)
 	{
-		occupieTopRightCorner(board, row, col);
-		occupieTopLeftCorner(board, row, col);
+		occupieTopRightCorner(row, col);
+		occupieTopLeftCorner(row, col);
 	}
 	else if (row == 3 and col == 3)
 	{
-		occupieTopLeftCorner(board, row, col);
+		occupieTopLeftCorner(row, col);
 	}
 	else if (row == 3 and col != 3 and col != 0)
 	{
-		occupieTopLeftCorner(board, row, col);
-		occupieBottomLeftCorner(board, row, col);
+		occupieTopLeftCorner(row, col);
+		occupieBottomLeftCorner(row, col);
 	}
 	else if (row == 3 and col == 0)
 	{
-		occupieBottomLeftCorner(board, row, col);
+		occupieBottomLeftCorner(row, col);
 	}
 	else if (col == 0 and row != 0 and row !=3)
 	{
-		occupieBottomLeftCorner(board, row, col);
-		occupieBottomRightCorner(board, row, col);
+		occupieBottomLeftCorner(row, col);
+		occupieBottomRightCorner(row, col);
 	}
 	else
 	{
-		occupieBottomLeftCorner(board, row, col);
-		occupieBottomRightCorner(board, row, col);
-		occupieTopLeftCorner(board, row, col);
-		occupieTopRightCorner(board, row, col);
+		occupieBottomLeftCorner(row, col);
+		occupieBottomRightCorner(row, col);
+		occupieTopLeftCorner(row, col);
+		occupieTopRightCorner(row, col);
 	}
 
 	board[col][row] = 3;
 	return 0;
 }
 
-
-bool solver(int board[4][4])
+void reset()
 {
-	int queens = 0;
-	for (int z = 0; z < 4; z++)
+	for (int j = 0; j < 4; j++)
 	{
-		for (int j = 0; j < 4; j++)
+		for (int i = 0; i < 4; i++)
 		{
-			for (int i = 0; i < 4; i++)
-			{
-				if (board[j][i] == 0)
-				{
-					board[j][i] = 2;
-					occupiePlaces(board);
-					queens++;
-				}
-			}
+			board[j][i] = 0;
 		}
 	}
-	return 0;
 }
 
-void printTable(int board[4][4])
+void printTable()
 {
 	for (int i = 0; i < 4; i++)
 	{
@@ -200,15 +196,72 @@ void printTable(int board[4][4])
 	}
 }
 
+void clear()
+{
+	for (int j = 0; j < 4; j++)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			board[j][i] = 0;
+		}
+	}
+}
+
+void filler()
+{
+	for (int j = 0; j< fillerCol; j++)
+	{
+		for (int i = 0; i < fillerRow; i++)
+		{
+			board[j][i] = 1;
+		}
+	}
+}
+
+void solver()
+{
+	int queens = 0;
+	for (int j = 0; j < 4; j++)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			if (board[j][i] == 0)
+			{
+				board[j][i] = 2;
+				occupiePlaces();
+				queens++;
+			}
+		}
+	}
+	if (solutions != 2)
+	{
+		if (queens != 4)
+		{
+			clear();
+			filler();
+			fillerRow++;
+			if (fillerRow == 4)
+			{
+				fillerRow = 0;
+				fillerCol++;
+			}
+			queens = 0;
+			solver();
+		}
+		else {
+			printTable();
+			cout << endl;
+			queens = 0;
+			solutions++;
+			solver();
+		}
+	}
+	else {
+		return;
+	}
+}
 
 int main()
 {
-	int board[4][4] = { {0,0,0,0},
-						{0,0,0,0},
-						{0,0,0,0},
-						{0,0,0,0} };
-
-	solver(board);
-	
-	printTable(board);
+	solver();
 }

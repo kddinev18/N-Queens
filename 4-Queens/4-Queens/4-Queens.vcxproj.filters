@@ -18,5 +18,25 @@
     <ClCompile Include="4-Queens.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Unit tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Data Layer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Global Variables.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Unit tests.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Global Variables.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Data Layer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

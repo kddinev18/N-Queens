@@ -140,6 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="4-Queens.cpp" />
+    <ClCompile Include="Data Layer.cpp" />
+    <ClCompile Include="Global Variables.cpp" />
+    <ClCompile Include="Unit tests.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Global Variables.h" />
+    <ClInclude Include="Data Layer.h" />
+    <ClInclude Include="Unit tests.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -71,5 +71,99 @@ void testIsColumnPositionCorrect()
 	}
 }
 
+void testAreCornersOccupied()
+{
+	int col = 0;
+	int row = 3;
+	int expectedRow = 0;
+	int expectedCol = 3;
+	board[col][row] = 2;
+	occupyTopRightCorner(row, col);
+	if (board[expectedCol][expectedRow] == 1)
+	{
+		cout << "Passed!" << endl;
+	}
 
+	else
+	{
+		cout << "Failed" << endl;
+	}
+}
 
+void testIsHorizontallOccupied()
+{
+	int col = 2;
+	bool isFilled = true;
+	occupyHorizontal(col);
+	for (int i = 0; i < 4; i++)
+	{
+		if (board[col][i] != 1)
+		{
+			isFilled = false;
+			break;
+		}
+	}
+
+	if(isFilled)
+	{
+		cout << "Passed!" << endl;
+	}
+
+	else
+	{
+		cout << "Failed" << endl;
+	}
+}
+
+void testIsVerticalOccupied()
+{
+	int row = 2;
+	bool isFilled = true;
+	occupyVertical(row);
+	for (int i = 0; i < 4; i++)
+	{
+		if (board[i][row] != 1)
+		{
+			isFilled = false;
+			break;
+		}
+	}
+
+	if (isFilled)
+	{
+		cout << "Passed!" << endl;
+	}
+
+	else
+	{
+		cout << "Failed" << endl;
+	}
+}
+
+void testAreinvalidPositionFilled()
+{
+	int fillerRow = 3;
+	int fillerCol = 0;
+	bool isFilled = true;
+	fillInvalidPositions(fillerRow, fillerCol);
+	for (int j = 0; j < fillerCol; j++)
+	{
+		for (int i = 0; i < fillerRow; i++)
+		{
+			if (board[j][i] != 1)
+			{
+				isFilled = false;
+			}
+		}
+	}
+
+	if (isFilled)
+	{
+		cout << "Passed!" << endl;
+	}
+
+	else
+	{
+		cout << "Failed" << endl;
+	}
+}
